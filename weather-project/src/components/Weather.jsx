@@ -12,12 +12,10 @@ const Weather = () => {
 
   async function searchWeather() {
     try {
-      // const reps = await fetch(
-      //   `${api.base}weather?q=${search}&units=metric&APPID=${api.key}`
-      // );
       const reps = await fetch(
-        `${api.url}forecast/daily?lat=44.34&lon=10.99&cnt=7&appid=${api.key}`
+        `${api.base}weather?q=${search}&units=metric&APPID=${api.key}`
       );
+      console.log(reps);
 
       const data = await reps.json();
       console.log(data);
@@ -58,20 +56,20 @@ const Weather = () => {
   // };
 
   return (
-    <div className=" h-screen flex justify-center  my-6 text-blue-600 ">
-      <header className="my-20">
+    <div className=" h-screen flex justify-center  text-blue-600 bild">
+      <header className="my-5 text-center ">
         {/* Header */}
-        <h1 className="font-bold text-5xl  ">Weather App</h1>
+        <h1 className="font-bold text-5xl ">Weather App</h1>
         {/* Search Bar */}
         <div>
           <input
-            className="my-6 bg-sky-100 rounded-3xl p-4 border-none outline-none shadow-xl bg"
+            className="my-6 bg-sky-100 rounded-3xl py-3 px-9 border-none outline-none shadow-xl bg"
             type="text"
             placeholder=" Search City or Town ...."
             onChange={(e) => setSearch(e.target.value)}
           />
           <button
-            className="hover:bg-blue-700 hover:text-white  bg-blue-300  text-blue-700 rounded-3xl p-4 mx-4 "
+            className="hover:bg-blue-700 hover:text-white  bg-blue-300  text-blue-700 rounded-3xl py-3 px-9 mx-4 "
             onClick={searchWeather}
           >
             Search
@@ -80,42 +78,71 @@ const Weather = () => {
         {typeof weather.main != "undefined" ? (
           // Display weather data
           <div
-            className=" border-none  rounded-xl p-6 shadow-xl text-white"
+            className=" flex justify-center flex-col items-center border-none  rounded-xl p-8 shadow-xl text-white"
             style={{ backgroundColor: "#b2b2b2a1" }}
           >
             {/* Location*/}
-            <p className="flex justify-center mx-1 text-4xl">
+            <p className="flex justify-center mx-1 text-5xl">
               {weather.name}, {weather.sys.country}
             </p>
             <img
-              className="w-1/2 flex justify-center  items-center "
+              className="w-1/3 text-center mx-auto "
               src={`https://api.openweathermap.org/img/w/${weather.weather[0].icon}.png`}
               alt=""
             />
+
             {/* Temperatur Celsius */}
-            <p className="flex justify-center my-1  py-3">
+            <p className="flex justify-center text-2xl">
+              {weather.weather[0].description}
+            </p>
+            <p className="flex justify-center my-1  py-3 text-4xl">
               Temp {weather.main.temp} °C
             </p>
             {/* Condition */}
-            <p className="flex justify-center  py-3">
+            <p className="flex justify-center  py-3 text-2xl">
               {weather.weather[0].main}
             </p>
             {/* Description */}
-            <p className="flex justify-center">
-              {weather.weather[0].description}
-            </p>
-            <p className="flex justify-center"> Temp {weather.main.temp} </p>
-            <p className="flex justify-center">
-              Humidity {weather.main.humidity} %
-            </p>
-            <p className="flex justify-center">
-              Feeling {weather.main.feels_like}°C
-            </p>
-            <p className="flex justify-center">
-              Pressure {weather.main.pressure}
-            </p>
-            <p className="flex justify-center"> {weather.wind.speed} </p>
-            <p className="flex justify-center"> {weather.wind.deg} </p>
+            <div
+              className=" flex border-none p-4  rounded-lg shadow-2xl my-4 gap-4  w-1/1"
+              style={{ backgroundColor: "#319af6b2" }}
+            >
+              <div
+                className="flex flex-col hover:text-green-300 cursor-pointer p-3 broder  text-gray-200 shadow-lg rounded-xl  gap-4  w-1/1 text-xl"
+                style={{ backgroundColor: "#c2c2c262" }}
+              >
+                <p>Feeling Like</p>
+                <p className=""> {weather.main.feels_like}°C</p>
+              </div>
+              <div
+                className="flex flex-col p-3  broder hover:text-green-300 cursor-pointer  text-gray-200 shadow-lg rounded-xl  gap-4  w-1/1 text-xl"
+                style={{ backgroundColor: "#c2c2c262" }}
+              >
+                <p>Pressure</p>
+                <p className="">{weather.main.pressure} mbar</p>
+              </div>
+              <div
+                className="flex flex-col p-3  broder hover:text-green-300 cursor-pointer text-gray-200 shadow-lg rounded-xl gap-4  w-1/1 text-xl"
+                style={{ backgroundColor: "#c2c2c262" }}
+              >
+                <p>Humidity</p>
+                <p className=""> {weather.main.humidity} %</p>
+              </div>
+              <div
+                className="flex flex-col p-3  broder hover:text-green-300 cursor-pointer text-gray-200 shadow-lg rounded-xl gap-4  w-1/1 text-xl"
+                style={{ backgroundColor: "#c2c2c262" }}
+              >
+                <p>Speed</p>
+                <p className=""> {weather.wind.speed} km/h </p>
+              </div>
+              <div
+                className="flex flex-col p-3  broder hover:text-green-300 cursor-pointer text-gray-200 shadow-lg rounded-xl gap-4 m w-1/1 text-xl"
+                style={{ backgroundColor: "#c2c2c262" }}
+              >
+                <p>Deg</p>
+                <p className=""> {weather.wind.deg} °</p>
+              </div>
+            </div>
           </div>
         ) : (
           " "

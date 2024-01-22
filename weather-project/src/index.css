@@ -2,7 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+
+}
+
 body {
-  font-family: "Roboto", Arial, sans-serif;
+
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.bild {
+  background-image: url(./img.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+
+}
+
+.logo {
+  background-color: #319af6b2;
+  background-image: url("./assets/mainImg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100dvh;
 
 }
